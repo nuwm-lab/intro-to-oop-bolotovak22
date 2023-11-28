@@ -1,0 +1,53 @@
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int arraySize = 1000000;
+        int iterations = 8;
+        for (int i = 0; i < iterations; i++)
+        {
+            SquareCoord array = new SquareCoord(arraySize);
+            Console.WriteLine($"Створено квадрат #{i + 1}. Вільна пам'ять: {GC.GetTotalMemory(false)} байт");
+
+            int perimeter = array.GetPerimeter();
+            Console.WriteLine($"Периметр квадрату #{i + 1}: {perimeter}");
+
+            Console.WriteLine($"Квадрат #{i + 1} автоматично видалено. Вільна пам'ять: {GC.GetTotalMemory(false)} байт");
+           
+        }
+    }
+}
+
+class SquareCoord
+{
+    private int[] coords;
+
+    public SquareCoord(int size)
+    {
+        coords = new int[size];
+        Random rand = new Random();
+
+        for (int i = 0; i < size; i++)
+        {
+            coords[i] = rand.Next(1, 100);
+        }
+    }
+
+    public int GetPerimeter()
+    {
+        int sum = 0;
+        foreach (var item in coords.Take(8))
+        {
+            sum += item;
+        }
+        return sum;
+    }
+
+        public void PrintArray()
+    {
+        Console.WriteLine(string.Join(", ", coords.Take(10)));
+    }
+}
